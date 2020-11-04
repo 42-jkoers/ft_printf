@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/03 14:39:18 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/04 13:43:46 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*c_tostr(int c);
 char	*s_tostr(char *s);
 char	*p_tostr(void *p);
 char	*p_tostr(void *p);
-char	*d_tostr(long num);
 char	*i_tostr(long num);
 char	*u_tostr(unsigned long u);
 char	*x_tostr(unsigned long x);
