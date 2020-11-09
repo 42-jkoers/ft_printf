@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   exit_error.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/03 01:14:55 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/04 01:21:52 by jkoers        ########   odam.nl         */
+/*   Created: 2020/11/08 15:46:22 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/11/08 16:10:57 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "libft.h"
-#include <ft_printf.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
+#include "ft_printf.h"
 
-int	main(void)
+void	ft_exit_error(char *error_msg)
 {
-	long a;
-
-	a = 42;
-	ft_printf("a%i", a);
-	return (0);
+	ft_putstr(error_msg);
+	exit(0);
 }

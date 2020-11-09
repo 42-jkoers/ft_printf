@@ -3,48 +3,76 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: joppe <joppe@student.codam.nl>               +#+                      #
+#    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/08/23 17:53:14 by joppe         #+#    #+#                  #
-#    Updated: 2020/11/03 13:17:39 by jkoers        ########   odam.nl          #
+#    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
+#    Updated: 2020/11/08 20:44:26 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-# Makefile for a generic project
+NAME      		= libftprintf
 
-NAME      	:= name
+TESTNAME		= testor
 
-CC          := gcc
-CFLAGS      :=
+CC          	= gcc
+CFLAGS      	= -Wall -Wextra -Werror
 
-HEADERDIR	:= .
-SRCDIR      := .
-BUILDDIR    := obj
-SRCEXT      := c
-OBJEXT      := o
-LIBS		:= -I../libft/include/ -L../libft/bin/ -lft
+SRCEXT      	= c
+SRCDIR      	= .
+HEADERDIR		= .
+OBJEXT      	= o
+BUILDDIR    	= obj
+BINDIR			= bin
+LIBS			= -I../libft/include/
+HEADERS			= ft_printf.h
 
-SOURCES     := $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
-OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$\
-$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
+UNITTEST		= test/test_ft_numtobase.c
 
-$(NAME): all
+SOURCES     	= $(SRCDIR)/ft_printf.c \
+				  $(SRCDIR)/handlers.c \
+				  $(SRCDIR)/handlers2.c \
+				  $(SRCDIR)/i_tostr.c \
+				  $(SRCDIR)/exit_error.c
+				
+OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
+				  $(SOURCES:$(SRCEXT)=$(OBJEXT)))
+dis				= $(subst lib,,$(NAME))
+STARTGREEN		= @echo -n "\033[38;2;0;255;0m"
+RESETCOLOR		= @echo -n "\033[0m"
 
-all: $(BUILDDIR)/ $(OBJECTS)
-	$(CC) $(CFLAGS) -I ${HEADERDIR}/ $(OBJECTS) -o $(NAME) ${LIBS}
+##
+
+all: $(BINDIR)/$(NAME).a
+
+$(NAME): $(BINDIR)/$(NAME).a
+
+static: $(BINDIR)/$(NAME).a
+
+$(BINDIR)/$(NAME).a: $(BUILDDIR)/ $(BINDIR)/ $(OBJECTS)
+	$(STARTGREEN)
+	make -C../libft/ static
+	$(RESETCOLOR)
+	cp ../libft/bin/libft.a $(BINDIR)/$(NAME).a 
+	ar -crs $(BINDIR)/$(NAME).a $(OBJECTS)
+	
+##
 
 clean:
 	/bin/rm -rf $(BUILDDIR)/
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(TESTNAME)
+	/bin/rm -rf $(BINDIR)/
 
 re: fclean all
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 
-$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
-	$(CC) $(CFLAGS) -I ${HEADERDIR}/ -c $< -o $@ $(LIBS)
+$(BINDIR)/:
+	mkdir -p $(BINDIR)
 
-.PHONY: all clean fclean re directories
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $@ $(LIBS)
+
+.PHONY: all so static clean fclean re libft

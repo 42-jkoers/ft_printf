@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf.h                                        :+:    :+:            */
+/*   test.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/08 15:53:09 by jkoers        ########   odam.nl         */
+/*   Created: 2020/11/08 01:29:45 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/11/08 15:42:58 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-
-void	ft_exit_error(char *error_msg);
-
-int		ft_printf(const char *format, ...);
-
-char	*c_tostr(int c);
-char	*s_tostr(char *s);
-char	*p_tostr(void *p);
-char	*p_tostr(void *p);
-char	*i_tostr(long num, char *special);
-char	*u_tostr(unsigned long u);
-char	*x_tostr(unsigned long x);
-char	*x_upper_tostr(unsigned long x_upper);
-
-#endif
+#include <stdio.h>
+int main(int argc, char const *argv[])
+{
+	printf("%- 33d", 42);
+	return 0;
+}
