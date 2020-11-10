@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/09 00:21:18 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/10 15:03:21 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,28 @@
 
 char	*i_tostr(long num, char *special)
 {
-	// fails if both 0 and - are passed
 	char	*num_str;
-	char	*temp;
+	size_t	width;
 
-	if (special[1] == '0')
-	{
-		// printf("%lu\n", ft_strtonum_u(special + 2));
-		num_str = ft_numtostr_pad(num, (size_t)ft_strtonum_u(special + 2));
-	}
-	else if (special[1] == '-')
-	{
-		temp = ft_numtostr(num);
-		num_str = ft_padend(temp, (size_t)ft_strtonum_u(special + 2), ' ');
-		free(temp);
-	}
-	else if (special[1] == 'i' || special[1] == 'd')
+	if (special[1] == 'i' || special[1] == 'd')
 		num_str = ft_numtostr(num);
+	else if (special[1] == '0')
+	{
+		width = (size_t)ft_strtonum_u(special + 2);
+		num_str = ft_numtostr_pad(num, width);
+	}
+	else if (special[1] == '-' && ft_isdigit(special[2]))
+	{
+		num_str = ft_numtostr(num);
+		width =  (size_t)ft_strtonum_u(special + 2);
+		ft_padend(&num_str, width, ' ');
+	}
+	else if (ft_isdigit(special[1]))
+	{
+		num_str = ft_numtostr(num);
+		width =  (size_t)ft_strtonum_u(special + 1);
+		ft_padstart(&num_str, width, ' ');
+	}
 	else
 		ft_exit_error("Not implamented 1");
 	return (num_str);

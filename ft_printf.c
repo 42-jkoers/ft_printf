@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/08 23:24:30 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/10 15:04:19 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ char	*do_special(char conversion, char *special, va_list ap)
 	else if (conversion == 'p')
 		return (p_tostr(va_arg(ap, void *)));
 	else if (conversion == 'i' || conversion == 'd')
-		return (i_tostr(va_arg(ap, long), special));
+		return (i_tostr(va_arg(ap, int), special));
 	else if (conversion == 'u')
-		return (u_tostr(va_arg(ap, unsigned long)));
+		return (u_tostr(va_arg(ap, unsigned int)));
 	else if (conversion == 'x')
-		return (x_tostr(va_arg(ap, unsigned long)));
+		return (x_tostr(va_arg(ap, unsigned int)));
 	else if (conversion == 'X')
-		return (x_upper_tostr(va_arg(ap, unsigned long)));
+		return (x_upper_tostr(va_arg(ap, unsigned int)));
 	else
 	{
-		ft_exit_error("Not implamented 1");
+		ft_exit_error("Not implamented 0");
 		return (NULL);
 	}
 }
@@ -61,7 +61,6 @@ int		print_result(t_list *list)
 	// ft_lstclear(&list, &free);
 	return ((int)len);
 }
-
 
 /*
 ** Returns length of special with all flags (%-5d) --> 4
