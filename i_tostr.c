@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/10 15:03:21 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/11 18:38:00 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,66 @@
 #include "ft_printf.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdarg.h>
 
-char	*i_tostr(long num, char *special)
+long	get_min_width(va_list ap, char *special, char *endchars)
+{
+	size_t i;
+
+	(void)(ap);
+	i = 0;
+	while (!ft_includes(endchars, special[i]))
+	{
+		if (special[i] == '.')
+			return (ft_strtonum(special + 1));
+		i++;
+	}
+	if (ft_includes("123456789-", special[1]))
+		return (ft_strtonum(special + 1));
+	return (0);
+}
+
+
+long	get_min_precision(va_list ap, char *special, char *endchars)
+{
+	size_t	i;
+	long	precision;
+
+	(void)(ap);
+
+	i = 0;
+	while (!ft_includes(endchars, special[i]))
+	{
+		if (special[i] == '.')
+		{
+			precision = ft_strtonum(special + i + 1);
+			return (precision < 0 ? -1 : precision);
+		}
+		i++;
+	}
+	if (special[1] == '0')
+	{
+		precision = ft_strtonum(special + 2);
+		return (precision < 0 ? -1 : precision);
+	}
+	return (-1);
+}
+
+char	*i_tostr(va_list ap, char *special)
 {
 	char	*num_str;
-	size_t	width;
+	long	min_width;
+	long	min_precision;
 
 	if (special[1] == 'i' || special[1] == 'd')
-		num_str = ft_numtostr(num);
-	else if (special[1] == '0')
-	{
-		width = (size_t)ft_strtonum_u(special + 2);
-		num_str = ft_numtostr_pad(num, width);
-	}
-	else if (special[1] == '-' && ft_isdigit(special[2]))
-	{
-		num_str = ft_numtostr(num);
-		width =  (size_t)ft_strtonum_u(special + 2);
-		ft_padend(&num_str, width, ' ');
-	}
-	else if (ft_isdigit(special[1]))
-	{
-		num_str = ft_numtostr(num);
-		width =  (size_t)ft_strtonum_u(special + 1);
-		ft_padstart(&num_str, width, ' ');
-	}
+		return (ft_numtostr(va_arg(ap, int)));
+	min_width = get_min_width(ap, special, "id");
+	min_precision = get_min_precision(ap, special, "id");
+	num_str = ft_numtostr_precision(va_arg(ap, int), min_precision == -1 ? 0 : min_precision);
+	if (min_width < 0)
+		ft_padend(&num_str, (size_t)ft_abs(min_width), ' ');
 	else
-		ft_exit_error("Not implamented 1");
+		ft_padstart(&num_str, (size_t)min_width, ' ');
+
 	return (num_str);
 }

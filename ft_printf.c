@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/10 15:04:19 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/11 16:13:09 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 bool	is_flag(char c)
 {
-	return (ft_includes("-0.* ", c));
+	return (ft_includes("-0.* ", c) || ft_isdigit(c));
 }
 
 char	*do_special(char conversion, char *special, va_list ap)
@@ -31,7 +31,7 @@ char	*do_special(char conversion, char *special, va_list ap)
 	else if (conversion == 'p')
 		return (p_tostr(va_arg(ap, void *)));
 	else if (conversion == 'i' || conversion == 'd')
-		return (i_tostr(va_arg(ap, int), special));
+		return (i_tostr(ap, special));
 	else if (conversion == 'u')
 		return (u_tostr(va_arg(ap, unsigned int)));
 	else if (conversion == 'x')
