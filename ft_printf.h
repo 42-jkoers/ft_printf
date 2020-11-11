@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/11 15:11:42 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/11 18:40:46 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@ char	*i_tostr(va_list ap, char *special);
 char	*u_tostr(unsigned long u);
 char	*x_tostr(unsigned long x);
 char	*x_upper_tostr(unsigned long x_upper);
+long	get_min_width(va_list ap, char *special, char *endchars);
+long	get_min_precision(va_list ap, char *special, char *endchars);
+
 
 #endif
