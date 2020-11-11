@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/11 18:40:46 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/11 19:08:21 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_exit_error(char *error_msg);
 int		ft_printf(const char *format, ...);
 
 char	*c_tostr(int c);
-char	*s_tostr(char *s);
+char	*s_tostr(va_list ap, char *special);
 char	*p_tostr(void *p);
 char	*p_tostr(void *p);
 char	*i_tostr(va_list ap, char *special);

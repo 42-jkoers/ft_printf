@@ -6,14 +6,13 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/05 21:38:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/11 22:45:42 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include "libft.h"
 #include "ft_printf.h"
-#include <stdlib.h>
+#include <stdarg.h>
 #include <stdio.h>
 
 char	*c_tostr(int c)
@@ -24,11 +23,28 @@ char	*c_tostr(int c)
 	return (ft_strndup(&c1, 1));
 }
 
-char	*s_tostr(char *s)
+char	*s_tostr(va_list ap, char *special)
 {
+	char	*s;
+	long	min_width;
+	long	min_precision;
+
+	if (special[1] == 's')
+		return (ft_strdup(va_arg(ap, char *)));
+	min_width = get_min_width(ap, special, "s");
+	min_precision = get_min_precision(ap, special, "s");
+	s = va_arg(ap, char *);
 	if (s == NULL)
 		return (ft_strdup("(null)"));
-	return (ft_strdup(s));
+	if (min_precision == -1)
+		s = ft_strdup(s);
+	else
+		s = ft_strndup(s, (size_t)min_precision);
+	if (min_width < 0)
+		ft_padend(&s, (size_t)ft_abs(min_width), ' ');
+	else
+		ft_padstart(&s, (size_t)min_width, ' ');
+	return (s);
 }
 
 char	*p_tostr(void *p)

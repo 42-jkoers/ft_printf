@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/09 17:26:15 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/11 18:48:41 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SOURCES     	= $(SRCDIR)/ft_printf.c \
 				  $(SRCDIR)/handlers.c \
 				  $(SRCDIR)/handlers2.c \
 				  $(SRCDIR)/i_tostr.c \
+				  $(SRCDIR)/flags.c \
 				  $(SRCDIR)/exit_error.c
 				
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
