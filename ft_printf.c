@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/11 22:55:21 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/12 00:18:29 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*do_special(char conversion, char *special, va_list ap)
 	else if (conversion == 'i' || conversion == 'd')
 		return (i_tostr(ap, special));
 	else if (conversion == 'u')
-		return (u_tostr(va_arg(ap, unsigned int)));
+		return (u_tostr(ap, special));
 	else if (conversion == 'x' || conversion == 'X')
 		return (x_tostr(ap, special, conversion == 'x'));
 	else

@@ -6,13 +6,15 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/08 01:29:45 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/08 15:42:58 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/14 01:04:19 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 int main(int argc, char const *argv[])
 {
-	printf("%- 33d", 42);
+	char *a;
+
+	printf("%p", a);
 	return 0;
 }

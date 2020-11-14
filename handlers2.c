@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/12 00:13:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/12 00:20:09 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,27 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-char	*u_tostr(unsigned long u)
+char	*u_tostr(va_list ap, char *special)
 {
-	return (ft_numtostr_u(u));
+	char	*num_str;
+	long	min_width;
+	long	min_precision;
+	char	padding;
+
+	if (special[1] == 'u')
+		return (ft_numtostr_u(va_arg(ap, unsigned int)));
+	min_width = get_min_width(ap, special, "u");
+	min_precision = get_min_precision(ap, special, "u");
+	num_str = ft_numtostr_precision_u(va_arg(ap, unsigned int), \
+									min_precision == -1 ? 0 : min_precision);
+	if (min_width < 0)
+		ft_padend(&num_str, (size_t)ft_abs(min_width), ' ');
+	else
+	{
+		padding = min_precision == -1 && special[1] == '0' ? '0' : ' ';
+		ft_padstart(&num_str, (size_t)min_width, padding);
+	}
+	return (num_str);
 }
 
 char	*x_tostr(va_list ap, char *special, bool lowercase)

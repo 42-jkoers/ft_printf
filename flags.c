@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/11 22:05:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/14 00:31:07 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ long	get_min_precision(va_list ap, char *special, char *endchars)
 		}
 		i++;
 	}
-	// if (special[1] == '0')
-	// {
-	// 	if (special[2] == '*')
-	// 		precision = (long)va_arg(ap, int);
-	// 	else if (ft_includes(endchars, special[2]))
-	// 		return (-1);
-	// 	else
-	// 		precision = ft_strtonum(special + 2);
-	// 	return (precision < 0 ? -1 : precision);
-	// }
+	if (special[1] == '0')
+	{
+		if (special[2] == '*')
+			precision = (long)va_arg(ap, int);
+		else if (ft_includes(endchars, special[2]))
+			return (-1);
+		else
+			precision = ft_strtonum(special + 2);
+		return (precision < 0 ? -1 : precision);
+	}
 	return (-1);
 }
