@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/15 16:42:48 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/16 18:39:25 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ UNITTEST		= test/test_ft_numtobase.c
 
 SOURCES     	= $(SRCDIR)/ft_printf.c \
 				  $(SRCDIR)/handlers.c \
-				  $(SRCDIR)/handlers2.c \
 				  $(SRCDIR)/i_tostr.c \
 				  $(SRCDIR)/flags.c \
 				  $(SRCDIR)/exit_error.c

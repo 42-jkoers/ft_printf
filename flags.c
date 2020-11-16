@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 17:05:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/16 18:57:59 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/*
-** Returns length of conversion, 0 if it's not a conversion
-*/
-// size_t	is_conversion(char *str)
-// {
-// 	if (!ft_strcmp(str, "c"))
-// 		return (1);
-// 	if (!ft_strcmp(str, "s"))
-// 		return (1);
-// 	if (!ft_strcmp(str, "p"))
-// 		return (1);
-// 	if (!ft_strcmp(str, "i") || !ft_strcmp(str, "d"))
-// 		return (1);
-// 	if (!ft_strcmp(str, "u"))
-// 		return (1);
-// 	if (!ft_strcmp(str, "x") || !ft_strcmp(str, "X"))
-// 		return (1);
-// 	return (0);
-// }
-
-/*
-** Before the `.`
-** returns length of field_with in format string
-*/
 size_t	set_field_width(t_special *special, va_list ap, char *format)
 {
 	size_t i;
@@ -54,10 +30,6 @@ size_t	set_field_width(t_special *special, va_list ap, char *format)
 	return (i);
 }
 
-/*
-** After the `.`
-** returns length of precision in format string
-*/
 size_t	set_precision(t_special *special, va_list ap, char *format)
 {
 	size_t i;
@@ -76,7 +48,9 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 	size_t i;
 
 	special->precision0 = -1;
-	if (special->flags[(size_t)'0'] == 0 || special->flags[(size_t)'-'] > 0)
+	if (special->flags[(size_t)'0'] == 0 || 
+		special->flags[(size_t)'-'] > 0 ||
+		!ft_isdigit(format[0]))
 		return (0);
 	special->precision0 = ft_strtonum(format);
 	i = 0;
