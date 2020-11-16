@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/11 18:48:41 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/15 16:42:48 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME      		= libftprintf
 TESTNAME		= testor
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Werror
+CFLAGS      	= -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter
 
 SRCEXT      	= c
 SRCDIR      	= .

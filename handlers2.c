@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/12 00:20:09 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/16 17:09:26 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,47 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-char	*u_tostr(va_list ap, char *special)
+char	*u_tostr(t_special *sp, va_list ap)
 {
-	char	*num_str;
-	long	min_width;
-	long	min_precision;
-	char	padding;
+	char			*num_str;
+	unsigned long	num;
+	long			precision;
 
-	if (special[1] == 'u')
-		return (ft_numtostr_u(va_arg(ap, unsigned int)));
-	min_width = get_min_width(ap, special, "u");
-	min_precision = get_min_precision(ap, special, "u");
-	num_str = ft_numtostr_precision_u(va_arg(ap, unsigned int), \
-									min_precision == -1 ? 0 : min_precision);
-	if (min_width < 0)
-		ft_padend(&num_str, (size_t)ft_abs(min_width), ' ');
+	num = (unsigned long)va_arg(ap, int);
+	if (sp->precision >= 0)
+		precision = sp->precision;
+	else if (sp->precision0 >= 0)
+		precision = sp->precision0;
 	else
+		precision = -1;
+	if (precision > 0)
+		num_str = ft_numtostr_precision_u(num, precision);
+	else
+		num_str = ft_numtostr_u(num);
+	if (sp->field_width >= 0)
 	{
-		padding = min_precision == -1 && special[1] == '0' ? '0' : ' ';
-		ft_padstart(&num_str, (size_t)min_width, padding);
+		if (sp->flags[(size_t)'-'] > 0)
+			ft_padend(&num_str, sp->field_width, ' ');
+		else
+			ft_padstart(&num_str, sp->field_width, ' ');
 	}
 	return (num_str);
 }
 
-char	*x_tostr(va_list ap, char *special, bool lowercase)
+char	*x_tostr(t_special *sp, va_list ap)
 {
 	char	*num_str;
-	long	min_width;
-	long	min_precision;
-	char	padding;
 
-	if (special[1] == 'x' || special[1] == 'X')
-		return (ft_numtohexstr_u(va_arg(ap, unsigned int), lowercase, false));
-	min_width = get_min_width(ap, special, "xX");
-	min_precision = get_min_precision(ap, special, "xX");
-	num_str = ft_numtohexstr_precision_u(va_arg(ap, unsigned int), lowercase, \
-	false, min_precision == -1 ? 0 : min_precision);
-	if (min_width < 0)
-		ft_padend(&num_str, (size_t)ft_abs(min_width), ' ');
+	if (sp->precision < 0)
+		num_str = ft_numtostr(va_arg(ap, int));
 	else
+		num_str = ft_numtostr_precision(va_arg(ap, int), sp->precision);
+	if (sp->field_width >= 0)
 	{
-		padding = min_precision == -1 && special[1] == '0' ? '0' : ' ';
-		ft_padstart(&num_str, (size_t)min_width, padding);
+		if (sp->flags[(size_t)'-'] > 0)
+			ft_padend(&num_str, (size_t)ft_abs(sp->field_width), ' ');
+		else
+			ft_padstart(&num_str, (size_t)sp->field_width, ' ');
 	}
 	return (num_str);
 }
