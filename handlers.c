@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 16:33:23 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/16 19:14:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,4 @@ char	*s_tostr(t_special *sp, va_list ap)
 			ft_padstart(&result, field_width, ' ');
 	}
 	return (result);
-}
-
-char	*p_tostr(void *p)
-{
-	return (ft_numtohexstr_u((unsigned long)p, true, true));
 }

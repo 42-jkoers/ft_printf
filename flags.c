@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 18:57:59 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/16 21:39:05 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 		special->flags[(size_t)'-'] > 0 ||
 		!ft_isdigit(format[0]))
 		return (0);
-	special->precision0 = ft_strtonum(format);
 	i = 0;
 	while (ft_isdigit(format[i]))
 		i++;
@@ -61,6 +60,7 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 		special->precision0 = -1;
 		return (0);
 	}
+	special->precision0 = ft_strtonum(format);
 	return (i);
 }
 
@@ -74,13 +74,13 @@ size_t	do_conversion(t_special *special, va_list ap, char *format, t_list **list
 	else if (format[0] == 's')
 		ft_lstpush_back(list, s_tostr(special, ap));
 	else if (format[0] == 'p')
-		ft_lstpush_back(list, p_tostr(va_arg(ap, void *)));
+		ft_lstpush_back(list, p_tostr(special, ap));
 	else if (format[0] == 'i' || format[0] == 'd')
 		ft_lstpush_back(list, i_tostr(special, ap));
 	else if (format[0] == 'u')
 		ft_lstpush_back(list, u_tostr(special, ap));
 	else if (format[0] == 'x' || format[0] == 'X')
-		ft_lstpush_back(list, x_tostr(special, ap));
+		ft_lstpush_back(list, x_tostr(special, ap, format[0] == 'X'));
 	else
 		ft_exit_error("Not implamented 0");
 	return (len);

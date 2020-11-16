@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 15:56:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/16 19:15:39 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ int		ft_printf(const char *format, ...);
 size_t	do_special(t_list **list, char *percent, va_list ap);
 char	*c_tostr(int c);
 char	*s_tostr(t_special *sp, va_list ap);
-char	*p_tostr(void *p);
-char	*p_tostr(void *p);
+char	*p_tostr(t_special *sp, va_list ap);
 char	*i_tostr(t_special *sp, va_list ap);
 char	*u_tostr(t_special *sp, va_list ap);
-char	*x_tostr(t_special *sp, va_list ap);
+char	*x_tostr(t_special *sp, va_list ap, bool uppercase);
 
 
 #endif
