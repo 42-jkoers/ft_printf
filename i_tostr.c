@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 01:43:31 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 22:18:34 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,73 +17,65 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-char	*i_tostr(t_special *sp, va_list ap)
+char	*i_tostr(t_special *sp, long i)
 {
 	char	*num_str;
-	long	num;
 
-	num = (long)va_arg(ap, int);
-	if (sp->precision == 0 && num == 0)
+	if (sp->precision == 0 && i == 0)
 		num_str = ft_strdup("");
 	else 
 	{
-		if (sp->is0precision && num < 0)
+		if (sp->is0precision && i < 0)
 			sp->precision -= 1;
 		sp->precision = ft_max(sp->precision, 0);
-		num_str = ft_numtostr_precision(num, sp->precision);
+		num_str = ft_numtostr_precision(i, sp->precision);
 	}
 	apply_field_width(&num_str, sp);
 	return (num_str);
 }
 
-char	*u_tostr(t_special *sp, va_list ap)
+char	*u_tostr(t_special *sp, unsigned long u)
 {
-	char			*num_str;
-	unsigned long	num;
+	char	*num_str;
 
-	num = (unsigned long)va_arg(ap, int);
-	if (sp->precision == 0 && num == 0)
+	if (sp->precision == 0 && u == 0)
 		num_str = ft_strdup("");
 	else 
 	{
 		sp->precision = ft_max(sp->precision, 0);
-		num_str = ft_numtostr_precision_u(num, sp->precision);
+		num_str = ft_numtostr_precision_u(u, sp->precision);
 	}
 	apply_field_width(&num_str, sp);
 	return (num_str);
 }
 
-char	*x_tostr(t_special *sp, va_list ap, bool uppercase)
+char	*x_tostr(t_special *sp, unsigned long x, bool uppercase)
 {
 	char			*num_str;
-	unsigned long	num;
 
-	num = (unsigned int)va_arg(ap, unsigned int);
-	if (sp->precision == 0 && num == 0)
+	if (sp->precision == 0 && x == 0)
 		num_str = ft_strdup("");
 	else 
 	{
 		sp->precision = ft_max(sp->precision, 0);
-		num_str = ft_numtohexstr_precision_u(num, !uppercase, false, sp->precision);
+		num_str = ft_numtohexstr_precision_u(x, !uppercase, false, sp->precision);
 	}
 	apply_field_width(&num_str, sp);
 	return (num_str);
 }
 
-char	*p_tostr(t_special *sp, va_list ap)
+char	*p_tostr(t_special *sp, void *p)
 {
 	char			*num_str;
-	unsigned long	num;
 
-	num = (unsigned long)va_arg(ap, void *);
-	if (num == 0)
+	if (p == 0)
 		num_str = ft_strdup("(nil)");
 	else
 	{
 		if (sp->is0precision)
 			sp->precision -= 2;
 		sp->precision = ft_max(sp->precision, 0);
-		num_str = ft_numtohexstr_precision_u(num, true, true, sp->precision);
+		num_str = ft_numtohexstr_precision_u((unsigned long)p, true, true, sp->precision);
 	}
 	apply_field_width(&num_str, sp);
 	return (num_str);

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 01:42:23 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 20:47:08 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ char	*c_tostr(int c)
 	return (ft_strndup(&c1, 1));
 }
 
-char	*s_tostr(t_special *sp, va_list ap)
+char	*s_tostr(t_special *sp, char *s)
 {
-	char	*s;
 	char	*result;
 
-	s = va_arg(ap, char *);
 	if (s == NULL)
 		result = ft_strdup("(null)");
 	else if (sp->is0precision || sp->precision < 0)

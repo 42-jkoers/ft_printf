@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 01:36:41 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 22:17:51 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ size_t	do_conversion(t_special *special, va_list ap, char *format, t_list **list
 	if (format[0] == 'c')
 		ft_lstpush_back(list, c_tostr(va_arg(ap, int)));
 	else if (format[0] == 's')
-		ft_lstpush_back(list, s_tostr(special, ap));
+		ft_lstpush_back(list, s_tostr(special, va_arg(ap, char *)));
 	else if (format[0] == 'p')
-		ft_lstpush_back(list, p_tostr(special, ap));
+		ft_lstpush_back(list, p_tostr(special, va_arg(ap, void *)));
 	else if (format[0] == 'i' || format[0] == 'd')
-		ft_lstpush_back(list, i_tostr(special, ap));
+		ft_lstpush_back(list, i_tostr(special, va_arg(ap, int)));
 	else if (format[0] == 'u')
-		ft_lstpush_back(list, u_tostr(special, ap));
+		ft_lstpush_back(list, u_tostr(special,  va_arg(ap, unsigned int)));
 	else if (format[0] == 'x' || format[0] == 'X')
-		ft_lstpush_back(list, x_tostr(special, ap, format[0] == 'X'));
+		ft_lstpush_back(list, x_tostr(special, va_arg(ap, unsigned int), format[0] == 'X'));
 	else
 		ft_exit_error("Not implamented 0");
 	return (len);
