@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 14:04:52 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/17 13:30:07 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		print_result(t_list *list)
 		ft_putstr((char *)(current->content));
 		current = current->next;
 	}
-	// ft_lstclear(&list, &free);
+	ft_lstclear(&list, &free);
 	return ((int)len);
 }
 

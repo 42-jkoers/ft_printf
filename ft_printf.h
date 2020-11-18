@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 19:15:39 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 01:36:41 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef	struct		s_special
 	unsigned long	flags[127];
 	// char			*conversion;
 	long			field_width;	// -1 if unknown
-	long			precision;		// -1 if unknown
-	long			precision0;		// -1 if unknown
+	bool			is0precision;
+	long			precision;
 }					t_special;
 
 void	ft_exit_error(char *error_msg);

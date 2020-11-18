@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/16 21:39:05 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 01:36:41 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ size_t	set_precision(t_special *special, va_list ap, char *format)
 {
 	size_t i;
 
-	special->precision = -1;
 	if (format[0] == '.')
 		special->precision = ft_strtonum(format + 1);
 	i = format[0] == '.' ? 1 : 0;	
@@ -47,7 +46,8 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 {
 	size_t i;
 
-	special->precision0 = -1;
+	special->precision = -1;
+	special->is0precision = false;
 	if (special->flags[(size_t)'0'] == 0 || 
 		special->flags[(size_t)'-'] > 0 ||
 		!ft_isdigit(format[0]))
@@ -56,11 +56,9 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 	while (ft_isdigit(format[i]))
 		i++;
 	if (format[i] == '.')
-	{
-		special->precision0 = -1;
 		return (0);
-	}
-	special->precision0 = ft_strtonum(format);
+	special->is0precision = true;
+	special->precision = ft_strtonum(format);
 	return (i);
 }
 
