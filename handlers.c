@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 01:36:41 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 01:42:23 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 #include <stdio.h>
+
+void	apply_field_width(char **str, t_special *sp)
+{
+	if (str == NULL || *str == NULL)
+		return ;
+	if (sp->field_width >= 0)
+	{
+		if (sp->flags[(size_t)'-'] > 0)
+			ft_padend(str, sp->field_width, ' ');
+		else
+			ft_padstart(str, sp->field_width, ' ');
+	}
+}
 
 char	*c_tostr(int c)
 {
@@ -37,12 +50,6 @@ char	*s_tostr(t_special *sp, va_list ap)
 		result = ft_strndup(s, sp->precision);
 	if (sp->is0precision)
 		sp->field_width = ft_max(sp->field_width, sp->precision);
-	if (sp->field_width >= 0)
-	{
-		if (sp->flags[(size_t)'-'] > 0)
-			ft_padend(&result, sp->field_width, ' ');
-		else
-			ft_padstart(&result, sp->field_width, ' ');
-	}
+	apply_field_width(&result, sp);
 	return (result);
 }

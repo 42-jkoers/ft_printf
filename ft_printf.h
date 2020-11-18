@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 01:36:41 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/18 01:42:06 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_exit_error(char *error_msg);
 int		ft_printf(const char *format, ...);
 
 size_t	do_special(t_list **list, char *percent, va_list ap);
+void	apply_field_width(char **str, t_special *sp);
 char	*c_tostr(int c);
 char	*s_tostr(t_special *sp, va_list ap);
 char	*p_tostr(t_special *sp, va_list ap);
