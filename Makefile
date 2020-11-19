@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/18 01:43:39 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/18 22:34:29 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(NAME): $(BINDIR)/$(NAME).a
 
 static: $(BINDIR)/$(NAME).a
 
-$(BINDIR)/$(NAME).a: $(BUILDDIR)/ $(BINDIR)/ $(OBJECTS)
+$(BINDIR)/$(NAME).a: $(BUILDDIR)/ $(BINDIR)/ $(OBJECTS) $(HEADERS)
 	$(STARTGREEN)
 	make -C../libft/ static
 	$(RESETCOLOR)
@@ -78,7 +78,7 @@ $(BUILDDIR)/:
 $(BINDIR)/:
 	mkdir -p $(BINDIR)
 
-$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
 	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $@ $(LIBS)
 
 .PHONY: all so static clean fclean re libft

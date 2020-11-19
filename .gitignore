@@ -4,3 +4,6 @@ tester
 *.pdf
 name
 a.out
+pft/
+testor.c
+.vscode/
