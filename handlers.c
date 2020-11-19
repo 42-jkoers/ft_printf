@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 20:47:08 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/19 23:58:45 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,17 @@ void	apply_field_width(char **str, t_special *sp)
 	}
 }
 
-char	*c_tostr(int c)
+char	*c_tostr(t_special *sp, int c)
 {
-	char c1;
+	char	c1;
+	char	*result;
 
-	c1 = (char)c;
-	return (ft_strndup(&c1, 1));
+	c1 = (char)((unsigned char)c);
+	result = ft_strndup(&c1, 1);
+	if (sp->is0precision)
+		sp->field_width = ft_max(sp->field_width, sp->precision);
+	apply_field_width(&result, sp);
+	return (result);
 }
 
 char	*s_tostr(t_special *sp, char *s)

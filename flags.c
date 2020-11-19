@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 22:17:51 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/20 00:04:17 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ size_t	do_conversion(t_special *special, va_list ap, char *format, t_list **list
 	size_t	len;
 
 	len = 1;
-	if (format[0] == 'c')
-		ft_lstpush_back(list, c_tostr(va_arg(ap, int)));
+	if (format[0] == '%')
+		ft_lstpush_back(list, c_tostr(special, (int)'%'));
+	else if (format[0] == 'c')
+		ft_lstpush_back(list, c_tostr(special, va_arg(ap, int)));
 	else if (format[0] == 's')
 		ft_lstpush_back(list, s_tostr(special, va_arg(ap, char *)));
 	else if (format[0] == 'p')
