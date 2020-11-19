@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/18 22:18:34 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/19 00:20:08 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ char	*p_tostr(t_special *sp, void *p)
 	char			*num_str;
 
 	if (p == 0)
+	{
 		num_str = ft_strdup("(nil)");
+		if (sp->precision > 0 && sp->is0precision && sp->field_width < 0)
+			sp->field_width = sp->precision;
+	}
 	else
 	{
 		if (sp->is0precision)
