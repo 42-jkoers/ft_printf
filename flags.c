@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/20 00:04:17 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/20 00:10:15 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,39 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-size_t	set_field_width(t_special *special, va_list ap, char *format)
+size_t	set_field_width(t_special *sp, va_list ap, char *format)
 {
 	size_t i;
 
 	i = 0;
-	special->field_width = -1;
+	sp->field_width = -1;
 	if (ft_isdigit(format[0]))
-		special->field_width = ft_strtonum(format);
+		sp->field_width = ft_strtonum(format);
 	while (ft_isdigit(format[i]))
 		i++;
 	return (i);
 }
 
-size_t	set_precision(t_special *special, va_list ap, char *format)
+size_t	set_precision(t_special *sp, va_list ap, char *format)
 {
 	size_t i;
 
 	if (format[0] == '.')
-		special->precision = ft_strtonum(format + 1);
+		sp->precision = ft_strtonum(format + 1);
 	i = format[0] == '.' ? 1 : 0;	
 	while (ft_isdigit(format[i]))
 		i++;
 	return (i);
 }
 
-size_t	set_precision0(t_special *special, va_list ap, char *format)
+size_t	set_precision0(t_special *sp, va_list ap, char *format)
 {
 	size_t i;
 
-	special->precision = -1;
-	special->is0precision = false;
-	if (special->flags[(size_t)'0'] == 0 || 
-		special->flags[(size_t)'-'] > 0 ||
+	sp->precision = -1;
+	sp->is0precision = false;
+	if (sp->flags[(size_t)'0'] == 0 || 
+		sp->flags[(size_t)'-'] > 0 ||
 		!ft_isdigit(format[0]))
 		return (0);
 	i = 0;
@@ -57,30 +57,30 @@ size_t	set_precision0(t_special *special, va_list ap, char *format)
 		i++;
 	if (format[i] == '.')
 		return (0);
-	special->is0precision = true;
-	special->precision = ft_strtonum(format);
+	sp->is0precision = true;
+	sp->precision = ft_strtonum(format);
 	return (i);
 }
 
-size_t	do_conversion(t_special *special, va_list ap, char *format, t_list **list)
+size_t	do_conversion(t_special *sp, va_list ap, char *format, t_list **list)
 {
 	size_t	len;
 
 	len = 1;
 	if (format[0] == '%')
-		ft_lstpush_back(list, c_tostr(special, (int)'%'));
+		ft_lstpush_back(list, c_tostr(sp, (int)'%'));
 	else if (format[0] == 'c')
-		ft_lstpush_back(list, c_tostr(special, va_arg(ap, int)));
+		ft_lstpush_back(list, c_tostr(sp, va_arg(ap, int)));
 	else if (format[0] == 's')
-		ft_lstpush_back(list, s_tostr(special, va_arg(ap, char *)));
+		ft_lstpush_back(list, s_tostr(sp, va_arg(ap, char *)));
 	else if (format[0] == 'p')
-		ft_lstpush_back(list, p_tostr(special, va_arg(ap, void *)));
+		ft_lstpush_back(list, p_tostr(sp, va_arg(ap, void *)));
 	else if (format[0] == 'i' || format[0] == 'd')
-		ft_lstpush_back(list, i_tostr(special, va_arg(ap, int)));
+		ft_lstpush_back(list, i_tostr(sp, va_arg(ap, int)));
 	else if (format[0] == 'u')
-		ft_lstpush_back(list, u_tostr(special,  va_arg(ap, unsigned int)));
+		ft_lstpush_back(list, u_tostr(sp,  va_arg(ap, unsigned int)));
 	else if (format[0] == 'x' || format[0] == 'X')
-		ft_lstpush_back(list, x_tostr(special, va_arg(ap, unsigned int), format[0] == 'X'));
+		ft_lstpush_back(list, x_tostr(sp, va_arg(ap, unsigned int), format[0] == 'X'));
 	else
 		ft_exit_error("Not implamented 0");
 	return (len);
@@ -91,20 +91,20 @@ size_t	do_conversion(t_special *special, va_list ap, char *format, t_list **list
 */
 size_t	do_special(t_list **list, char *percent, va_list ap)
 {
-	t_special	special;
+	t_special	sp;
 	size_t		i;
 	const char	*flags = "0- +#";
 
 	i = 1;
-	ft_memset(special.flags, 0, sizeof(special.flags));
+	ft_memset(sp.flags, 0, sizeof(sp.flags));
 	while (ft_includes((char *)flags, percent[i]))
 	{
-		special.flags[(size_t)percent[i]] += 1;
+		sp.flags[(size_t)percent[i]] += 1;
 		i++;
 	}
-	i += set_precision0(&special, ap, percent + i);
-	i += set_field_width(&special, ap, percent + i);
-	i += set_precision(&special, ap, percent + i);
-	i += do_conversion(&special, ap, percent + i, list);
+	i += set_precision0(&sp, ap, percent + i);
+	i += set_field_width(&sp, ap, percent + i);
+	i += set_precision(&sp, ap, percent + i);
+	i += do_conversion(&sp, ap, percent + i, list);
 	return (i);
 }
