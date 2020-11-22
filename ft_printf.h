@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/20 00:10:06 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/22 21:17:26 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@
 # include <stddef.h>
 # include "../libft/include/libft.h"
 
+# define S_NULL "(null)"
+# define P_NULL "(nil)"
+
 typedef	struct		s_special
 {
-
-	unsigned long	flags[127];
+	bool			flag[127];
 	long			field_width;
-	bool			is0precision;
 	long			precision;
 }					t_special;
 
 void	ft_exit_error(char *error_msg);
 
 int		ft_printf(const char *format, ...);
+void	print_special(t_special *sp);
 
 size_t	do_special(t_list **list, char *percent, va_list ap);
 void	apply_field_width(char **str, t_special *sp);
