@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 17:42:42 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:01:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	c(t_special *sp, int c)
 	char	c1;
 
 	c1 = (char)((unsigned char)c);
-	sp->str = &c1;
+	sp->res = &c1;
 	sp->len = 1;
 	sp->free = false;
 }
@@ -39,6 +39,6 @@ void	s(t_special *sp, char *s)
 		}
 		return ;
 	}
-	sp->str = s;
+	sp->res = s;
 	sp->len = sp->precision == -1 ? ft_strlen(s) : (size_t)sp->precision;
 }

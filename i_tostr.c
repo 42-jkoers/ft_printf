@@ -32,7 +32,7 @@ void	i(t_special *sp, long i)
 			numlen = ft_max(sp->field_width - (i < 0 ? 1 : 0), 0); 
 		else
 			numlen = ft_max(sp->precision, 0);
-		sp->res = ft_numtoblock_precision(i, (size_t)numlen);
+		sp->res = ft_numtostr_precision(i, (size_t)numlen);
 		sp->len = ft_strlen(sp->res);
 		sp->free = true;
 	}

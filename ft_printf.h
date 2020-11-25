@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 17:47:12 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:02:12 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <unistd.h>
 # include "../libft/include/libft.h"
 
 # define S_NULL "(null)"

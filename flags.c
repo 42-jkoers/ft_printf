@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 17:50:42 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:04:05 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,24 +124,14 @@ size_t	set_res(t_special *sp, va_list ap, char *format)
 */
 size_t	set_special(t_special *sp, va_list ap, char *percent)
 {
-	size_t	conversion_len;
+	size_t	len;
 
-	conversion_len = 1;
-	conversion_len += set_flags(sp, percent + i);
-	conversion_len += set_field_width(sp, ap, percent + i);
-	conversion_len += set_precision(sp, ap, percent + i);
-	conversion_len += set_conversion(sp, ap, percent + i);
-	conversion_len += set_res(sp, ap, percent + i);
-	if (sp->res != NULL && sp->field_width != -1)
-	{
-		if (sp->len < sp->field_width)
-			sp->len = sp->field_width;
-		if (sp->flag[(int)'-'])
-			ft_padend(&(sp->res), sp->field_width, ' ');
-		else
-			ft_padstart(&(sp->res), sp->field_width, ' ');
-	}
-	return (conversion_len);
+	len = 1;
+	len += set_flags(sp, percent + len);
+	len += set_field_width(sp, ap, percent + len);
+	len += set_precision(sp, ap, percent + len);
+	len += set_res(sp, ap, percent + len);
+	return (len);
 }
 
 // void	print_special(t_special *sp)
