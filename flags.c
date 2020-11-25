@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/22 22:36:28 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 17:50:42 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stddef.h>
+#include <unistd.h>
 
 size_t	set_flags(t_special *sp, char *format)
 {
@@ -96,52 +98,57 @@ size_t	set_precision(t_special *sp, va_list ap, char *format)
 	return (i);
 }
 
-size_t	do_conversion(t_special *sp, va_list ap, char *format, t_list **list)
+size_t	set_res(t_special *sp, va_list ap, char *format)
 {
-	size_t	len;
-
-	len = 1;
 	if (format[0] == '%')
-		ft_lstpush_back(list, c_tostr(sp, (int)'%'));
+		c(sp, (int)'%');
 	else if (format[0] == 'c')
-		ft_lstpush_back(list, c_tostr(sp, va_arg(ap, int)));
+		c(sp, va_arg(ap, int));
 	else if (format[0] == 's')
-		ft_lstpush_back(list, s_tostr(sp, va_arg(ap, char *)));
+		s(sp, va_arg(ap, char *));
 	else if (format[0] == 'p')
-		ft_lstpush_back(list, p_tostr(sp, va_arg(ap, void *)));
+		p(sp, va_arg(ap, void *));
 	else if (format[0] == 'i' || format[0] == 'd')
-		ft_lstpush_back(list, i_tostr(sp, va_arg(ap, int)));
+		i(sp, va_arg(ap, int));
 	else if (format[0] == 'u')
-		ft_lstpush_back(list, u_tostr(sp,  va_arg(ap, unsigned int)));
+		u(sp, va_arg(ap, unsigned int));
 	else if (format[0] == 'x' || format[0] == 'X')
-		ft_lstpush_back(list, x_tostr(sp, va_arg(ap, unsigned int), format[0] == 'X'));
+		x(sp, va_arg(ap, unsigned int), format[0] == 'X');
 	else
 		ft_exit_error("Not implamented 0");
-	return (len);
-}
-
-void	print_special(t_special *sp)
-{
-	printf("\n");
-	printf("Flag 0      %i\n", sp->flag[(int)'0']);
-	printf("Flag -      %i\n", sp->flag[(int)'-']);
-	printf("field_width %li\n", sp->field_width);
-	printf("precision   %li\n", sp->precision);
+	return (1);
 }
 
 /*
-** Returns length of all flags (%-5d) --> 4
+** Returns length of all flags and percent (%-5d) --> 4
 */
-size_t	do_special(t_list **list, char *percent, va_list ap)
+size_t	set_special(t_special *sp, va_list ap, char *percent)
 {
-	t_special	sp;
-	size_t		i;
+	size_t	conversion_len;
 
-	i = 1;
-	i += set_flags(&sp, percent + i);
-	i += set_field_width(&sp, ap, percent + i);
-	i += set_precision(&sp, ap, percent + i);
-	// print_special(&sp);
-	i += do_conversion(&sp, ap, percent + i, list);
-	return (i);
+	conversion_len = 1;
+	conversion_len += set_flags(sp, percent + i);
+	conversion_len += set_field_width(sp, ap, percent + i);
+	conversion_len += set_precision(sp, ap, percent + i);
+	conversion_len += set_conversion(sp, ap, percent + i);
+	conversion_len += set_res(sp, ap, percent + i);
+	if (sp->res != NULL && sp->field_width != -1)
+	{
+		if (sp->len < sp->field_width)
+			sp->len = sp->field_width;
+		if (sp->flag[(int)'-'])
+			ft_padend(&(sp->res), sp->field_width, ' ');
+		else
+			ft_padstart(&(sp->res), sp->field_width, ' ');
+	}
+	return (conversion_len);
 }
+
+// void	print_special(t_special *sp)
+// {
+// 	printf("\n");
+// 	printf("Flag 0      %i\n", sp->flag[(int)'0']);
+// 	printf("Flag -      %i\n", sp->flag[(int)'-']);
+// 	printf("field_width %li\n", sp->field_width);
+// 	printf("precision   %li\n", sp->precision);
+// }

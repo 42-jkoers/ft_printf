@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/19 00:42:20 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 18:07:51 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,63 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include <unistd.h>
 
-int		print_result(t_list *list)
+/*
+** Returns length of all flags and percent (%-5d) --> 4
+** Returns -1 on error
+*/
+size_t	do_special(char *percent, va_list ap, ssize_t *total_written)
 {
-	size_t	len;
-	t_list	*current;
-	t_list	*next;
+	t_special	sp;
+	size_t		conversion_len;
 
-	len = 0;
-	current = list;
-	while (current != NULL)
-	{
-		if (current->content != NULL)
-		{
-			len += ft_strlen((char *)(current->content));
-			ft_putstr((char *)(current->content));
-			free(current->content);
-		}
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	return ((int)len);
+	conversion_len = set_special(&sp, ap, percent);
+	if (sp.res == NULL)
+		*total_written = -1;
+	else if (write(FD, sp.res, sp.len) != (ssize_t)sp.len)
+		*total_written = -1;
+	else
+		*total_written += (ssize_t)sp.len;
+	if (sp.free)
+		free(sp.res);
+	return (conversion_len);
 }
 
-t_list	*format_to_list(char *format, va_list ap)
+ssize_t	print(char *format, va_list ap)
 {
 	char		*percent;
-	t_list		*list;
+	ssize_t		total_written;
+	ssize_t		remainder;
 
-	list = NULL;
-	while (true)
+	percent = ft_strchr(format, '%');
+	total_written = 0;
+	while (percent && total_written != -1)
 	{
-		percent = ft_strchr(format, '%');
-		if (percent == NULL)
-			break ;
 		if (percent - format > 0)
-			ft_lstpush_back(&list, ft_strndup(format, percent - format));
-		format = percent + do_special(&list, percent, ap);
+		{
+			if (write(FD, format, percent - format) == -1)
+				return (-1);
+			total_written += percent - format;
+		}
+		format = percent + do_special(percent, ap, &total_written);
+		if (total_written == -1)
+			return (-1);
+		percent = ft_strchr(format, '%');
 	}
-	ft_lstpush_back(&list, ft_strdup(format));
-	return (list);
+	remainder = ft_strlen(format);
+	if (write(FD, format, remainder) != remainder)
+		return (-1);
+	return (total_written);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	t_list		*list;
+	ssize_t		len;
 
 	va_start(ap, format);
-	list = format_to_list((char *)format, ap);
+	len = print((char *)format, ap);
 	va_end(ap);
-	return (print_result(list));
+	return ((int)len);
 }

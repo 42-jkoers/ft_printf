@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/22 22:41:32 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 17:42:42 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,30 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-void	apply_field_width(char **str, t_special *sp)
-{
-	if (str == NULL || *str == NULL)
-		return ;
-	if (sp->field_width == -1)
-		return ;
-	if (sp->flag[(int)'-'])
-		ft_padend(str, sp->field_width, ' ');
-	else
-		ft_padstart(str, sp->field_width, ' ');
-}
-
-char	*c_tostr(t_special *sp, int c)
+void	c(t_special *sp, int c)
 {
 	char	c1;
-	char	*result;
 
 	c1 = (char)((unsigned char)c);
-	result = ft_strndup(&c1, 1);
-	if (c1 != '%')
-		apply_field_width(&result, sp);
-	return (result);
+	sp->str = &c1;
+	sp->len = 1;
+	sp->free = false;
 }
 
-char	*s_tostr(t_special *sp, char *s)
+void	s(t_special *sp, char *s)
 {
-	char	*result;
-
+	sp->free = false;
 	if (s == NULL)
 	{	
 		if (sp->precision != -1 && sp->precision < (long)ft_strlen(S_NULL))
-			result = ft_strdup("");
-		else 
-			result = ft_strdup(S_NULL);
+			sp->len = 0;
+		else
+		{
+			sp->res = S_NULL;
+			sp->len = ft_strlen(S_NULL);
+		}
+		return ;
 	}
-	else if (sp->precision == -1)
-		result = ft_strdup(s);
-	else
-		result = ft_strndup(s, sp->precision);
-	apply_field_width(&result, sp);
-	return (result);
+	sp->str = s;
+	sp->len = sp->precision == -1 ? ft_strlen(s) : (size_t)sp->precision;
 }
