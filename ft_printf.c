@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:11:20 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:28:59 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ ssize_t	write_result(t_special *sp)
 ** Returns length of all flags and percent (%-5d) --> 4
 ** Returns -1 on error
 */
+
 size_t	do_special(char *percent, va_list ap, ssize_t *total_written)
 {
 	t_special	sp;

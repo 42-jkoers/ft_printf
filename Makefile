@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/18 22:34:29 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/25 23:33:23 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SOURCES     	= $(SRCDIR)/ft_printf.c \
 				  $(SRCDIR)/i_tostr.c \
 				  $(SRCDIR)/flags.c \
 				  $(SRCDIR)/exit_error.c
-				
+
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
 				  $(SOURCES:$(SRCEXT)=$(OBJEXT)))
 dis				= $(subst lib,,$(NAME))
@@ -52,9 +52,9 @@ $(BINDIR)/$(NAME).a: $(BUILDDIR)/ $(BINDIR)/ $(OBJECTS) $(HEADERS)
 	$(STARTGREEN)
 	make -C../libft/ static
 	$(RESETCOLOR)
-	cp ../libft/bin/libft.a $(BINDIR)/$(NAME).a 
+	cp ../libft/bin/libft.a $(BINDIR)/$(NAME).a
 	ar -crs $(BINDIR)/$(NAME).a $(OBJECTS)
-	
+
 ##
 
 clean:

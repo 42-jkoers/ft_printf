@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:01:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:29:17 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	s(t_special *sp, char *s)
 {
 	sp->free = false;
 	if (s == NULL)
-	{	
+	{
 		if (sp->precision != -1 && sp->precision < (long)ft_strlen(S_NULL))
 			sp->len = 0;
 		else

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:04:05 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:34:53 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 size_t	set_flags(t_special *sp, char *format)
 {
 	const char	*flags = "0-";
-	size_t i;
-	
+	size_t		i;
+
 	i = 0;
 	while (flags[i])
 	{
@@ -47,20 +47,21 @@ size_t	set_flags(t_special *sp, char *format)
 ** When "%.s" field_width = unknown
 ** When "%*s" * = field width
 */
+
 size_t	set_field_width(t_special *sp, va_list ap, char *format)
 {
 	size_t	i;
 
-	sp->field_width = -1; 
+	sp->field_width = -1;
 	i = 0;
 	if (format[0] == '*')
 	{
-		sp->field_width = (long)(va_arg(ap , int));
-		if (sp->field_width  < 0)
+		sp->field_width = (long)(va_arg(ap, int));
+		if (sp->field_width < 0)
 		{
 			sp->field_width = -(sp->field_width);
-			sp->flag[(int)'-'] = true; 
-			sp->flag[(int)'0'] = false; 
+			sp->flag[(int)'-'] = true;
+			sp->flag[(int)'0'] = false;
 		}
 		return (1);
 	}
@@ -78,16 +79,17 @@ size_t	set_field_width(t_special *sp, va_list ap, char *format)
 ** When "%.s" precision = 0
 ** precision < 0 ? precision = unknown
 */
+
 size_t	set_precision(t_special *sp, va_list ap, char *format)
 {
 	size_t i;
 
 	sp->precision = -1;
-	if (format[0] != '.') 
+	if (format[0] != '.')
 		return (0);
 	if (format[1] == '*')
 	{
-		sp->precision = ft_max((long)(va_arg(ap , int)), -1);
+		sp->precision = ft_max((long)(va_arg(ap, int)), -1);
 		return (2);
 	}
 	i = 1;
@@ -122,6 +124,7 @@ size_t	set_res(t_special *sp, va_list ap, char *format)
 /*
 ** Returns length of all flags and percent (%-5d) --> 4
 */
+
 size_t	set_special(t_special *sp, va_list ap, char *percent)
 {
 	size_t	len;
@@ -134,11 +137,13 @@ size_t	set_special(t_special *sp, va_list ap, char *percent)
 	return (len);
 }
 
-// void	print_special(t_special *sp)
-// {
-// 	printf("\n");
-// 	printf("Flag 0      %i\n", sp->flag[(int)'0']);
-// 	printf("Flag -      %i\n", sp->flag[(int)'-']);
-// 	printf("field_width %li\n", sp->field_width);
-// 	printf("precision   %li\n", sp->precision);
-// }
+/*
+** void	print_special(t_special *sp)
+** {
+** 	printf("\n");
+** 	printf("Flag 0      %i\n", sp->flag[(int)'0']);
+** 	printf("Flag -      %i\n", sp->flag[(int)'-']);
+** 	printf("field_width %li\n", sp->field_width);
+** 	printf("precision   %li\n", sp->precision);
+** }
+*/

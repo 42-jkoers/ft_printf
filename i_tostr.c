@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_toblock.c                                          :+:    :+:            */
+/*   i_tostr.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/24 00:52:45 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/25 23:30:09 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	i(t_special *sp, long i)
 		sp->free = false;
 		sp->len = 0;
 	}
-	else 
+	else
 	{
 		if (sp->precision == -1 && sp->flag[(int)'0'])
-			numlen = ft_max(sp->field_width - (i < 0 ? 1 : 0), 0); 
+			numlen = ft_max(sp->field_width - (i < 0 ? 1 : 0), 0);
 		else
 			numlen = ft_max(sp->precision, 0);
 		sp->res = ft_numtostr_precision(i, (size_t)numlen);
@@ -47,10 +47,10 @@ void	u(t_special *sp, unsigned long u)
 		sp->len = 0;
 		sp->free = false;
 	}
-	else 
+	else
 	{
 		if (sp->precision == -1 && sp->flag[(int)'0'])
-			numlen = (size_t)ft_max(sp->field_width, 0); 
+			numlen = (size_t)ft_max(sp->field_width, 0);
 		else
 			numlen = (size_t)ft_max(sp->precision, 0);
 		sp->res = ft_numtostr_precision_u(u, numlen);
@@ -68,10 +68,10 @@ void	x(t_special *sp, unsigned long x, bool uppercase)
 		sp->len = 0;
 		sp->free = false;
 	}
-	else 
+	else
 	{
 		if (sp->precision == -1 && sp->flag[(int)'0'])
-			numlen = (size_t)ft_max(sp->field_width, 0); 
+			numlen = (size_t)ft_max(sp->field_width, 0);
 		else
 			numlen = (size_t)ft_max(sp->precision, 0);
 		sp->res = ft_numtohexstr_precision_u(x, !uppercase, false, numlen);
@@ -93,10 +93,10 @@ void	p(t_special *sp, void *p)
 	else
 	{
 		if (sp->precision == -1 && sp->flag[(int)'0'])
-			numlen = (size_t)ft_max(sp->field_width - 2, 0); 
+			numlen = (size_t)ft_max(sp->field_width - 2, 0);
 		else
 			numlen = (size_t)ft_max(sp->precision, 0);
-		sp->res = ft_numtohexstr_precision_u((unsigned long)p, true, true, numlen);
+		sp->res = ft_numtohexstr_precision_u((unsigned long)p, 1, 1, numlen);
 		sp->len = ft_strlen(sp->res);
 		sp->free = true;
 	}
