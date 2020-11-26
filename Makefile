@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/26 22:40:40 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/26 22:42:47 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ HEADERDIR		= .
 OBJEXT      	= o
 BUILDDIR    	= obj
 BINDIR			= bin
-LIBS			= -I../libft/include/
+LIBS			= -Ilibft/include/
 HEADERS			= ft_printf.h
 
 UNITTEST		= test/test_ft_numtobase.c
