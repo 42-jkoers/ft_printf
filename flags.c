@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:34:53 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 01:04:02 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ size_t	set_field_width(t_special *sp, va_list ap, char *format)
 	size_t	i;
 
 	sp->field_width = -1;
-	i = 0;
 	if (format[0] == '*')
 	{
 		sp->field_width = (long)(va_arg(ap, int));
@@ -65,11 +64,11 @@ size_t	set_field_width(t_special *sp, va_list ap, char *format)
 		}
 		return (1);
 	}
+	i = 0;
 	while (ft_isdigit(format[i]))
 		i++;
-	if (i == 0)
-		return (0);
-	sp->field_width = (long)ft_strtonum_u(format);
+	if (i != 0)
+		sp->field_width = (long)ft_strtonum_u(format);
 	return (i);
 }
 
@@ -100,10 +99,16 @@ size_t	set_precision(t_special *sp, va_list ap, char *format)
 	return (i);
 }
 
-size_t	set_res(t_special *sp, va_list ap, char *format)
+size_t	set_res(t_special *sp, va_list ap, char *percent, char *format)
 {
 	if (format[0] == '%')
-		c(sp, (int)'%');
+	{
+		sp->field_width = -1;
+		sp->precision = -1;
+		sp->res = format;
+		sp->len = 1;
+		sp->free = false;
+	}
 	else if (format[0] == 'c')
 		c(sp, va_arg(ap, int));
 	else if (format[0] == 's')
@@ -117,8 +122,8 @@ size_t	set_res(t_special *sp, va_list ap, char *format)
 	else if (format[0] == 'x' || format[0] == 'X')
 		x(sp, va_arg(ap, unsigned int), format[0] == 'X');
 	else
-		ft_exit_error("Not implamented 0");
-	return (1);
+		invalid(sp, percent, format);
+	return (format[0] == '\0' ? 0 : 1);
 }
 
 /*
@@ -133,7 +138,7 @@ size_t	set_special(t_special *sp, va_list ap, char *percent)
 	len += set_flags(sp, percent + len);
 	len += set_field_width(sp, ap, percent + len);
 	len += set_precision(sp, ap, percent + len);
-	len += set_res(sp, ap, percent + len);
+	len += set_res(sp, ap, percent, percent + len);
 	return (len);
 }
 

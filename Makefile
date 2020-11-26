@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/25 23:33:23 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/26 01:21:02 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME      		= libftprintf
 TESTNAME		= testor
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra
+CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized
 
 SRCEXT      	= c
 SRCDIR      	= .
@@ -31,8 +31,7 @@ UNITTEST		= test/test_ft_numtobase.c
 SOURCES     	= $(SRCDIR)/ft_printf.c \
 				  $(SRCDIR)/handlers.c \
 				  $(SRCDIR)/i_tostr.c \
-				  $(SRCDIR)/flags.c \
-				  $(SRCDIR)/exit_error.c
+				  $(SRCDIR)/flags.c
 
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
 				  $(SOURCES:$(SRCEXT)=$(OBJEXT)))
