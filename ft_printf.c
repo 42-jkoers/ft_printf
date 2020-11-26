@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:28:59 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 01:32:29 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,21 @@ ssize_t	write_result(t_special *sp)
 
 	if (sp->res == NULL)
 		return (-1);
-	written = 0;
-	if (sp->flag[(int)'-'] && write(FD, sp->res, sp->len) != (ssize_t)sp->len)
+	if (sp->len > 0 &&
+		sp->flag[(int)'-'] &&
+		write(FD, sp->res, sp->len) != (ssize_t)sp->len)
 		return (-1);
 	padding = ft_max(sp->field_width - sp->len, 0);
-	written += (ssize_t)padding;
+	written = (ssize_t)padding;
 	while (padding > 0)
 	{
 		padding--;
 		if (write(FD, " ", 1) != 1)
 			return (-1);
 	}
-	if (!sp->flag[(int)'-'] && write(FD, sp->res, sp->len) != (ssize_t)sp->len)
+	if (sp->len > 0 &&
+		!sp->flag[(int)'-'] &&
+		write(FD, sp->res, sp->len) != (ssize_t)sp->len)
 		return (-1);
 	written += (ssize_t)sp->len;
 	return (written);
@@ -54,6 +57,11 @@ size_t	do_special(char *percent, va_list ap, ssize_t *total_written)
 	size_t		conversion_len;
 	ssize_t		written;
 
+	sp.field_width = -1;
+	sp.precision = -1;
+	sp.res = NULL;
+	sp.len = 0;
+	sp.free = false;
 	conversion_len = set_special(&sp, ap, percent);
 	if (sp.res == NULL)
 	{
