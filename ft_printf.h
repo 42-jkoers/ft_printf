@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 00:53:01 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 13:17:48 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # include "../libft/include/libft.h"
 
 # define S_NULL "(null)"
-# define P_NULL "(nil)"
-# define FD 1
-
-void				ft_exit_error(char *error_msg);
+# ifdef __APPLE__
+#  define P_NULL "0x"
+# else
+#  define P_NULL "(nil)"
+# endif
 
 typedef	struct		s_special
 {
@@ -35,11 +36,11 @@ typedef	struct		s_special
 }					t_special;
 
 int					ft_printf(const char *format, ...);
-ssize_t				print(char *format, va_list ap);
 size_t				set_special(t_special *sp, va_list ap, char *percent);
 
 void				c(t_special *sp, int c);
 void				s(t_special *sp, char *s);
+
 void				i(t_special *sp, long i);
 void				u(t_special *sp, unsigned long u);
 void				x(t_special *sp, unsigned long x, bool uppercase);
