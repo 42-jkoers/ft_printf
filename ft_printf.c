@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 13:14:05 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 13:15:03 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stddef.h>
 #include <unistd.h>
 
-ssize_t	write_result(t_special *sp, int fd)
+static ssize_t	write_result(t_special *sp, int fd)
 {
 	ssize_t written;
 	long	padding;
@@ -51,7 +51,7 @@ ssize_t	write_result(t_special *sp, int fd)
 ** Returns -1 on error
 */
 
-size_t	do_special(char *percent, va_list ap, ssize_t *total, int fd)
+static size_t	do_special(char *percent, va_list ap, ssize_t *total, int fd)
 {
 	t_special	sp;
 	size_t		conversion_len;
@@ -78,7 +78,7 @@ size_t	do_special(char *percent, va_list ap, ssize_t *total, int fd)
 	return (conversion_len);
 }
 
-ssize_t	print(char *format, va_list ap, int fd)
+static ssize_t	print(char *format, va_list ap, int fd)
 {
 	char		*percent;
 	ssize_t		total_written;

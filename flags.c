@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 01:04:02 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 13:01:53 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stddef.h>
 #include <unistd.h>
 
-size_t	set_flags(t_special *sp, char *format)
+static size_t	set_flags(t_special *sp, char *format)
 {
 	const char	*flags = "0-";
 	size_t		i;
@@ -48,7 +48,7 @@ size_t	set_flags(t_special *sp, char *format)
 ** When "%*s" * = field width
 */
 
-size_t	set_field_width(t_special *sp, va_list ap, char *format)
+static size_t	set_field_width(t_special *sp, va_list ap, char *format)
 {
 	size_t	i;
 
@@ -79,7 +79,7 @@ size_t	set_field_width(t_special *sp, va_list ap, char *format)
 ** precision < 0 ? precision = unknown
 */
 
-size_t	set_precision(t_special *sp, va_list ap, char *format)
+static size_t	set_precision(t_special *sp, va_list ap, char *format)
 {
 	size_t i;
 
@@ -99,7 +99,7 @@ size_t	set_precision(t_special *sp, va_list ap, char *format)
 	return (i);
 }
 
-size_t	set_res(t_special *sp, va_list ap, char *percent, char *format)
+static size_t	set_res(t_special *sp, va_list ap, char *percent, char *format)
 {
 	if (format[0] == '%')
 	{
