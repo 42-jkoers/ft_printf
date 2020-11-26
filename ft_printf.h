@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:32:58 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 00:53:01 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void				i(t_special *sp, long i);
 void				u(t_special *sp, unsigned long u);
 void				x(t_special *sp, unsigned long x, bool uppercase);
 void				p(t_special *sp, void *p);
+void				invalid(t_special *sp, char *percent, char *format);
 
 #endif
