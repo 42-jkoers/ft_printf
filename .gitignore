@@ -1,9 +1,5 @@
+en.subject.pdf
 obj/
 bin/
-tester
-*.pdf
-name
-a.out
-pft/
-testor.c
 .vscode/
+libftprintf.a
