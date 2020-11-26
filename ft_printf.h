@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 16:41:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 17:00:01 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
-# include <unistd.h>
 
 # define S_NULL "(null)"
 # ifdef __APPLE__

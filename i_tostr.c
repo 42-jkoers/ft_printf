@@ -6,15 +6,13 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/25 23:30:09 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 17:00:32 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "libft.h"
 #include "ft_printf.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "libft.h"
+#include <stdbool.h>
 #include <stdarg.h>
 
 void	i(t_special *sp, long i)

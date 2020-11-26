@@ -6,14 +6,13 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 01:14:09 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 16:59:33 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_printf.h"
+#include "libft.h"
 #include <stdarg.h>
-#include <stdio.h>
 
 void	c(t_special *sp, int c)
 {

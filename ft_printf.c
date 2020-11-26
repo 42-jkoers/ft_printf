@@ -6,18 +6,17 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 13:15:03 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/26 17:01:08 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "libft.h"
 #include "ft_printf.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
+#include <stdbool.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 static ssize_t	write_result(t_special *sp, int fd)
 {
@@ -88,22 +87,20 @@ static ssize_t	print(char *format, va_list ap, int fd)
 	total_written = 0;
 	while (percent && total_written != -1)
 	{
-		if (percent - format > 0)
-		{
-			if (write(fd, format, percent - format) != percent - format)
-				return (-1);
-			total_written += percent - format;
-		}
+		remainder = (ssize_t)(percent - format);
+		if (remainder > 0 && write(fd, format, remainder) != remainder)
+			return (-1);
+		total_written += remainder;
 		format = percent + do_special(percent, ap, &total_written, fd);
 		percent = ft_strchr(format, '%');
 	}
 	remainder = ft_strlen(format);
-	if (write(fd, format, remainder) != remainder)
+	if (remainder > 0 && write(fd, format, remainder) != remainder)
 		return (-1);
 	return (total_written);
 }
 
-int		ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	ssize_t		len;
