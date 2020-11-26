@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/26 01:21:02 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/26 22:40:40 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ HEADERS			= ft_printf.h
 UNITTEST		= test/test_ft_numtobase.c
 
 SOURCES     	= $(SRCDIR)/ft_printf.c \
-				  $(SRCDIR)/handlers.c \
-				  $(SRCDIR)/i_tostr.c \
+				  $(SRCDIR)/convert_str.c \
+				  $(SRCDIR)/convert_int.c \
 				  $(SRCDIR)/flags.c
 
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
