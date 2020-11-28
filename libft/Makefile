@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/26 23:09:22 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/28 17:18:14 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ SOURCES =	ft_abs.c \
             ft_substr.c \
             ft_tolower.c \
             ft_toupper.c
-OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$\
+OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
 				  $(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 INCLUDENAME		= $(subst lib,,$(NAME))
 
@@ -134,19 +134,23 @@ $(TESTNAME): $(BINDIR)/$(NAME).a $(UNITTEST)
 ##
 
 clean:
+ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
+endif
 
 fclean: clean
-	/bin/rm -f $(TESTNAME)
+ifneq "$(BINDIR)" "."
 	/bin/rm -rf $(BINDIR)/
+endif
+	/bin/rm -f $(TESTNAME)
 
 re: fclean all
 
 $(BUILDDIR)/:
-	@mkdir -p $(BUILDDIR)
+	mkdir -p $(BUILDDIR)
 
 $(BINDIR)/:
-	@mkdir -p $(BINDIR)
+	mkdir -p $(BINDIR)
 
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADER)
 	$(CC) $(CFLAGS) -I$(HEADERDIR)/ -c $< -o $@

@@ -6,13 +6,11 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/26 23:10:50 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/28 17:11:24 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME      		= libftprintf
-
-TESTNAME		= testor
 
 CC          	= gcc
 CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized
@@ -23,7 +21,8 @@ HEADERDIR		= .
 OBJEXT      	= o
 BUILDDIR    	= obj
 BINDIR			= .
-LIBS			= -Ilibft/
+LIBDIR			= libft
+LIBS			= -I$(LIBDIR)/
 HEADERS			= ft_printf.h
 
 SOURCES     	= $(SRCDIR)/ft_printf.c \
@@ -55,16 +54,19 @@ $(BINDIR)/$(NAME).a: $(BUILDDIR)/ $(BINDIR)/ $(OBJECTS) $(HEADERS)
 ##
 
 clean:
+ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
+endif
 	$(STARTGREEN)
-	make -C../libft/ clean
+	make -C${LIBDIR}/ clean
 	$(RESETCOLOR)
 
 fclean: clean
-	/bin/rm -f $(TESTNAME)
+ifneq "$(BINDIR)" "."
 	/bin/rm -rf $(BINDIR)/
+endif
 	$(STARTGREEN)
-	make -C../libft/ fclean
+	make -C${LIBDIR}/ fclean
 	$(RESETCOLOR)
 
 re: fclean all
