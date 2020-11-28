@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/26 22:42:47 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/26 23:10:50 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,9 @@ SRCDIR      	= .
 HEADERDIR		= .
 OBJEXT      	= o
 BUILDDIR    	= obj
-BINDIR			= bin
-LIBS			= -Ilibft/include/
+BINDIR			= .
+LIBS			= -Ilibft/
 HEADERS			= ft_printf.h
-
-UNITTEST		= test/test_ft_numtobase.c
 
 SOURCES     	= $(SRCDIR)/ft_printf.c \
 				  $(SRCDIR)/convert_str.c \

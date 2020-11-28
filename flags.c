@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 13:01:53 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/28 16:16:45 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ static size_t	set_res(t_special *sp, va_list ap, char *percent, char *format)
 ** Returns length of all flags and percent (%-5d) --> 4
 */
 
-size_t	set_special(t_special *sp, va_list ap, char *percent)
+size_t			set_special(t_special *sp, va_list ap, char *percent)
 {
 	size_t	len;
 
