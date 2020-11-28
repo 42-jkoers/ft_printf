@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 17:00:01 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/28 23:05:26 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
-
 # define S_NULL "(null)"
 # ifdef __APPLE__
 #  define P_NULL "0x"
@@ -25,6 +24,18 @@
 
 int					ft_printf(const char *format, ...);
 
+/*
+** This struct is assigned for every converstion (eg. %c), often defined as sp
+** @param flag			This stores all flags at index. Access: sp.flag['-']
+** @param field_width	-1 if unknown
+** @param precision		-1 if unknown
+** @param res			Pointer to the result of the conversion.
+**						NULL when malloc fails.
+**						Garbage if conversion has length 0.
+** @param len			0 if there is no conversion to be done.
+**						Number of chars to print from res
+** @param free			If res should be freed after writing.
+*/
 typedef	struct		s_special
 {
 	bool			flag[127];
