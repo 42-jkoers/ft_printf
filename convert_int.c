@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   i_tostr.c                                          :+:    :+:            */
+/*   convert_int.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 17:00:32 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/28 23:21:32 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	i(t_special *sp, long i)
 
 	if (sp->precision == 0 && i == 0)
 	{
+		sp->res = (char *)42;
 		sp->free = false;
 		sp->len = 0;
 	}
@@ -42,6 +43,7 @@ void	u(t_special *sp, unsigned long u)
 
 	if (sp->precision == 0 && u == 0)
 	{
+		sp->res = (char *)42;
 		sp->len = 0;
 		sp->free = false;
 	}
@@ -63,6 +65,7 @@ void	x(t_special *sp, unsigned long x, bool uppercase)
 
 	if (sp->precision == 0 && x == 0)
 	{
+		sp->res = (char *)42;
 		sp->len = 0;
 		sp->free = false;
 	}

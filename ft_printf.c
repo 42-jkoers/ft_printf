@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 17:01:08 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/28 23:23:09 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@ static ssize_t	write_result(t_special *sp, int fd)
 	ssize_t written;
 	long	padding;
 
-	if (sp->res == NULL)
-		return (-1);
 	if (sp->len > 0 &&
 		sp->flag[(int)'-'] &&
 		write(fd, sp->res, sp->len) != (ssize_t)sp->len)
 		return (-1);
-	padding = ft_max(sp->field_width - sp->len, 0);
+	padding = ft_max(sp->field_width - (long)sp->len, 0);
 	written = (ssize_t)padding;
 	while (padding > 0)
 	{
@@ -56,13 +54,8 @@ static size_t	do_special(char *percent, va_list ap, ssize_t *total, int fd)
 	size_t		conversion_len;
 	ssize_t		written;
 
-	sp.field_width = -1;
-	sp.precision = -1;
-	sp.res = NULL;
-	sp.len = 0;
-	sp.free = false;
 	conversion_len = set_special(&sp, ap, percent);
-	if (sp.res == NULL)
+	if (sp.len > 0 && sp.res == NULL)
 	{
 		*total = -1;
 		return (0);
