@@ -6,14 +6,14 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/11/28 22:44:58 by jkoers        ########   odam.nl          #
+#    Updated: 2020/11/30 17:13:51 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME      		= libftprintf
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Wuninitialized
+CFLAGS      	= -Wall -Wextra -Werror
 
 SRCEXT      	= c
 SRCDIR      	= .
@@ -58,6 +58,8 @@ endif
 	$(RESETCOLOR)
 
 fclean: clean
+#stupid "all files in same directory" rule
+	/bin/rm -f libftprintf.a
 ifneq "$(BINDIR)" "."
 	/bin/rm -rf $(BINDIR)/
 endif
