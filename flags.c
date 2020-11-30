@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/30 13:35:34 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 17:46:55 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 #include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <stddef.h>
 #include <unistd.h>
 

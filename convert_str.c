@@ -6,13 +6,12 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/30 15:37:25 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 17:46:28 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "libft.h"
-#include <stdarg.h>
 
 void	do_percent(t_special *sp, char *format)
 {
