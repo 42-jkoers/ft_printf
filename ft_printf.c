@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/28 23:23:09 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 16:37:50 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ static size_t	do_special(char *percent, va_list ap, ssize_t *total, int fd)
 		return (0);
 	}
 	written = write_result(&sp, fd);
-	if (written == -1)
-		*total = -1;
-	else
-		*total += (ssize_t)sp.len;
+	*total = written == -1 ? -1 : *total + written;
 	if (sp.free)
 		free(sp.res);
 	return (conversion_len);
@@ -90,6 +87,7 @@ static ssize_t	print(char *format, va_list ap, int fd)
 	remainder = ft_strlen(format);
 	if (remainder > 0 && write(fd, format, remainder) != remainder)
 		return (-1);
+	// total_written += remainder;
 	return (total_written);
 }
 
