@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:02:52 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/28 23:21:32 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 15:45:22 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ void	p(t_special *sp, void *p)
 
 	if (p == 0)
 	{
-		sp->res = P_NULL;
-		sp->len = ft_strlen(P_NULL);
-		sp->free = false;
+		sp->res = APPLE ? ft_strdup("0x0") : ft_strdup("(nil)");
+		sp->len = ft_strlen(sp->res);
+		sp->free = true;
 	}
 	else
 	{

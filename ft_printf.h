@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/29 20:43:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 15:41:45 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <stddef.h>
-# define S_NULL "(null)"
 # ifdef __APPLE__
-#  define P_NULL "0x0"
+#  define APPLE true
 # else
-#  define P_NULL "(nil)"
+#  define APPLE false
 # endif
 
 int					ft_printf(const char *format, ...);
@@ -47,6 +46,7 @@ typedef	struct		s_special
 }					t_special;
 
 size_t				set_special(t_special *sp, va_list ap, char *percent);
+void				do_percent(t_special *sp, char *format);
 void				c(t_special *sp, int c);
 void				s(t_special *sp, char *s);
 void				i(t_special *sp, long i);

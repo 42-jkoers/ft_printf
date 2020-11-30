@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/11 18:39:47 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/28 16:16:45 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 13:35:34 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,7 @@ static size_t	set_precision(t_special *sp, va_list ap, char *format)
 static size_t	set_res(t_special *sp, va_list ap, char *percent, char *format)
 {
 	if (format[0] == '%')
-	{
-		sp->field_width = -1;
-		sp->precision = -1;
-		sp->res = format;
-		sp->len = 1;
-		sp->free = false;
-	}
+		do_percent(sp, format);
 	else if (format[0] == 'c')
 		c(sp, va_arg(ap, int));
 	else if (format[0] == 's')
