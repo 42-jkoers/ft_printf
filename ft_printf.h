@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/28 23:05:26 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/29 20:43:44 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stddef.h>
 # define S_NULL "(null)"
 # ifdef __APPLE__
-#  define P_NULL "0x"
+#  define P_NULL "0x0"
 # else
 #  define P_NULL "(nil)"
 # endif
