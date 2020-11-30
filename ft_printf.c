@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/04 13:25:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/30 16:37:50 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 17:03:34 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static ssize_t	print(char *format, va_list ap, int fd)
 	remainder = ft_strlen(format);
 	if (remainder > 0 && write(fd, format, remainder) != remainder)
 		return (-1);
-	// total_written += remainder;
+	total_written += remainder;
 	return (total_written);
 }
 
